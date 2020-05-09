@@ -1,26 +1,26 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Poker from './poker';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  private poker: Poker = new Poker();
+  componentDidMount(){
+    this.poker.initGame();
+  }
+
+  render(): React.ReactNode{
+    return (
+      <div className="App">
+        <header className="App-header">
+        
+          <p>
+            Consulte o console do navegador
+          </p>
+        
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
