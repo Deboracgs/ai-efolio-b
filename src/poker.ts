@@ -1,15 +1,13 @@
-const rangeCards = {
-    a: [1,13],
-    b: [14,26],
-    c: [27,39],
-    d: [40,52]
-};  
+import Points from "./points";
+import { util, rangeCards } from "./utils";
+
+
 interface ScientistInProject {
     id: string;
     count: number;
 }
 
-interface Project {
+export interface Project {
     scientst: string[];
     production: number;
 }
@@ -27,6 +25,7 @@ export default class Poker {
     private scientistInProject: ScientistInProject[];
     private projects: Project[];
 
+
     constructor(instances: number[]){
         this.scientist = [];
         this.kScientistQuantity = instances[0];   
@@ -35,21 +34,13 @@ export default class Poker {
         this.gGroupOfCards = 5;   // DON'T CHANGE
         this.cards = instances.slice(3,instances.length);
         this.scientistInProject = [];
-        this.projects = []
+        this.projects = [];
 
-        this.naipeA = this.generateArrayOfNumbers(rangeCards.a);
-        this.naipeB = this.generateArrayOfNumbers(rangeCards.b);
-        this.naipeC = this.generateArrayOfNumbers(rangeCards.c);
-        this.naipeD = this.generateArrayOfNumbers(rangeCards.d);
+        this.naipeA = util.generateArrayOfNumbers(rangeCards.a);
+        this.naipeB = util.generateArrayOfNumbers(rangeCards.b);
+        this.naipeC = util.generateArrayOfNumbers(rangeCards.c);
+        this.naipeD = util.generateArrayOfNumbers(rangeCards.d);
 
-    }
-
-    generateArrayOfNumbers(range: number[]): number[] {
-        let arr = [];
-        for (let index = range[0]; index <= range[1]; index++) {
-            arr.push(index);
-        }
-        return arr;
     }
 
     generateProjects(){
@@ -60,9 +51,9 @@ export default class Poker {
                let scientistIndex = this.scientistInProject.findIndex((x) => x.id === value);
                if(scientistProject.length < this.gGroupOfCards){
                     if(scientistIndex !== -1){
-                        if(this.scientistInProject[scientistIndex].count !== 2){
+                        if(this.scientistInProject[scientistIndex].count !== 0){
                             scientistProject.push(value);
-                            this.scientistInProject[scientistIndex].count = this.scientistInProject[scientistIndex].count +1;
+                            this.scientistInProject[scientistIndex].count = this.scientistInProject[scientistIndex].count - 1;
                         }
                     }else{
                         scientistProject.push(value);
@@ -70,7 +61,8 @@ export default class Poker {
                     }
                }
             });
-            this.projects.push({scientst: scientistProject, production: 0});
+            let production = new Points(scientistProject).getPoints();
+            this.projects.push({scientst: scientistProject, production: production});
         }
     }
 
