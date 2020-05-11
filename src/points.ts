@@ -60,15 +60,15 @@ export default class Points {
         let checkNaipes = false;
         let checkNumbers = false;
         this.scientists.map((value, i): void => {
+            let next = this.scientists[i-1];
             let naipe = this.getNaipe(value);
             let cardNumber = this.getNumber(value);
             if(i === 0){
                 checkNaipes = true;
                 checkNumbers=  true;
             }else{
-                let next = this.scientists[i-1];
                 checkNaipes = naipe === this.getNaipe(next);
-                checkNumbers =  cardNumber === this.getNumber(next);
+                checkNumbers =  this.getNumber(next) === cardNumber - 1;
             }
         });
         this.points =  checkNaipes && checkNumbers ? this.points + 50 : this.points;
@@ -126,7 +126,7 @@ export default class Points {
             if(i === 0){
                 count=  1;
             }else{
-                count =  this.getNumber(value) === this.getNumber(next) ? count +1 : count;
+                count =   this.getNumber(value) - 1 === this.getNumber(next) ? count +1 : count;
             }
         });
         this.points = count === 5 ? this.points + 4 : this.points;

@@ -1,11 +1,18 @@
 import React from 'react';
 import './App.css';
 import Poker from './poker';
+import { instances } from './instances';
 
 class App extends React.Component {
-  private poker: Poker = new Poker([13, 8, 2, 19, 45, 31, 13, 9, 14, 52, 37, 47, 24, 42, 8, 7]);
+  //private poker: Poker = new Poker(instances[9]); // CHANGE HERE THE INDEX TO EXECUTE
   componentDidMount(){
-    this.poker.initGame();
+    
+
+    instances.map((value, i): void => {
+      var startTime = window.performance.now();
+      new Poker(value).initGame();
+      console.log(`End ${i+1}`, window.performance.now() - startTime);
+    })
   }
 
   render(): React.ReactNode{
