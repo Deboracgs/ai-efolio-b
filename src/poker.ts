@@ -54,11 +54,9 @@ export default class Poker {
 
     generateProjects(){
         let maxOfProjects = Math.floor(this.wScientistPerProject * this.zScientistLimitMayBeInProject / this.gGroupOfCards);
-
         for (let index = 1; index <= maxOfProjects; index++) {
             let scientistProject: string[] = [];
-
-            this.scientist.map((value, i) => {
+            this.scientist.map((value): void => {
                let scientistIndex = this.scientistInProject.findIndex((x) => x.id === value);
                if(scientistProject.length < this.gGroupOfCards){
                     if(scientistIndex !== -1){
@@ -117,21 +115,10 @@ export default class Poker {
         })
     }
 
-    generateInstance(){
-        
-        // console.log(`Equipa #${this.wScientistPerProject}: `);
-        // console.log(`Equipa #${this.naipeA}: `);
-        // console.log(`Equipa #${this.naipeB}: `);
-        // console.log(`Equipa #${this.naipeC}: `);
-        // console.log(`Equipa #${this.naipeD}: `);
-        
-    }
-
     public initGame(): any {
         this.generateScientistCards();
         this.generateProjects();
         this.renderTeam();
         this.renderProjects();
-        this.generateInstance();
     }
 }
